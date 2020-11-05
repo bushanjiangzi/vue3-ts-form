@@ -14,28 +14,28 @@ interface Config {
 
 const propsType = {
   age: {
-    type: Number as PropType<number>,
+    type: Number as PropType<number>
   },
   config: {
     type: Object as PropType<Config>,
-    required: true,
-  },
+    required: true
+  }
 } as const // 只读，使required正确实现
 export default defineComponent({
   name: 'App',
   components: {
-    HelloWorld,
+    HelloWorld
   },
   // vue3使用ts推荐使用对象作为props传参
   props: propsType,
   data() {
     return {
-      name: 'jiang',
+      name: 'jiang'
     }
   },
   mounted() {
     this.config
-  },
+  }
 })
 </script>
 
