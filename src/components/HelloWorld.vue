@@ -11,8 +11,8 @@ export default defineComponent({
   name: 'HelloWorld',
   props: {
     msg: String,
-    age: Number,
-  },
+    age: Number
+  }
 })
 </script>
 
