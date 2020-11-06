@@ -1,40 +1,46 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" :age="`16`" />
-  <div>{{ age }}</div>
+  <div>{{ name }}</div>
+  <div>{{ love }}</div>
+  <div>{{ info.age }}</div>
+  <div>{{ ageComputed }}</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, reactive, ref, computed, watchEffect } from 'vue'
 import HelloWorld from './components/HelloWorld.vue'
-// 定义ts
-interface Config {
-  type: string
-}
 
-const propsType = {
-  age: {
-    type: Number as PropType<number>
-  },
-  config: {
-    type: Object as PropType<Config>,
-    required: true
-  }
-} as const // 只读，使required正确实现
 export default defineComponent({
   name: 'App',
   components: {
     HelloWorld
   },
-  // vue3使用ts推荐使用对象作为props传参
-  props: propsType,
-  data() {
+  setup() {
+    let name = 'jiang'
+    const info = reactive({
+      age: 12
+    })
+    // ref: {value: xxx}
+    const love = ref('read')
+    setInterval(() => {
+      name += 1
+      info.age += 1
+      // love.value += 1
+    }, 1000)
+    const ageComputed = computed(() => {
+      return info.age * 2
+    })
+    // 副作用函数，watchEffect中调用的变量发生变化就会调用watchEffect()
+    watchEffect(() => {
+      console.log(info.age)
+    })
     return {
-      name: 'jiang'
+      name,
+      info,
+      love,
+      ageComputed
     }
-  },
-  mounted() {
-    this.config
   }
 })
 </script>
