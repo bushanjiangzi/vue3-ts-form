@@ -1,10 +1,12 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" :age="`16`" />
-  <div>{{ name }}</div>
-  <div>{{ love }}</div>
-  <div>{{ info.age }}</div>
-  <div>{{ ageComputed }}</div>
+  <div>
+    <img alt="Vue logo" src="./assets/logo.png" />
+    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" :age="`16`" />
+    <div>{{ name }}</div>
+    <div>{{ love }}</div>
+    <div>{{ info.age }}</div>
+    <div>{{ ageComputed }}</div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -15,6 +17,10 @@ export default defineComponent({
   name: 'App',
   components: {
     HelloWorld
+  },
+  mounted() {
+    // 可使用setup返回的变量
+    console.log('mounted:', this.love)
   },
   setup() {
     let name = 'jiang'
