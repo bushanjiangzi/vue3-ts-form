@@ -1,4 +1,4 @@
-import { createApp, defineComponent, h, reactive, ref } from 'vue'
+import { defineComponent, reactive, ref } from 'vue'
 const logo = require('./assets/logo.png') // eslint-disable-line
 import HelloWorld from './components/HelloWorld.vue'
 
