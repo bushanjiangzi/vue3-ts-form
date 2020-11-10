@@ -15,10 +15,6 @@ const schema = {
       type: 'string',
       format: 'email'
     },
-    test: {
-      type: 'string',
-      format: 'test'
-    },
     love: {
       type: 'array',
       items: {
@@ -27,6 +23,14 @@ const schema = {
     },
     isWorker: {
       type: 'boolean'
+    },
+    test: {
+      type: 'string',
+      format: 'test'
+    },
+    keyword: {
+      type: 'string',
+      keyword: false
     }
   },
   required: ['name', 'age'] // 必填项
@@ -38,6 +42,30 @@ ajv.addFormat('test', (data) => {
   console.log(data, '>>>---<<<')
   return data === 'yes'
 })
+// 自定义关键字
+ajv.addKeyword('keyword', {
+  validate(schema, data) {
+    console.log(schema, data)
+    if (schema === true)  return true
+    else return data.length === 5
+  },
+  // 提取公共的限制条件
+  macro() {
+    return {
+      minLength: 1
+    }
+  },
+  compile(sch, parentSchema) {
+    console.log(sch, parentSchema)
+    // 返回的是函数
+    return () => true
+  },
+  // 定义关键字的类型
+  metaSchema: {
+    type: 'boolean'
+  }
+})
+
 const validate = ajv.compile(schema)
 const valid = validate({
   name: 'jiang',
@@ -45,6 +73,7 @@ const valid = validate({
   email: 'grjiangzi@163.com',
   test: 'yes',
   love: ['eat', 'read'],
-  isWorker: true
+  isWorker: true,
+  keyword: 'jiang'
 })
 if (!valid) console.log(validate.errors)
