@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "ajv-errors": "^1.0.1",
+    "ajv-i18n": "^3.6.0"
+  }
+}

@@ -1,5 +1,6 @@
 // Node.js require:
 const Ajv = require('ajv')
+const localize = require('ajv-i18n')
 
 const schema = {
   type: 'object',
@@ -44,15 +45,15 @@ ajv.addFormat('test', (data) => {
 })
 // 自定义关键字
 ajv.addKeyword('keyword', {
-  validate(schema, data) {
-    console.log(schema, data)
-    if (schema === true)  return true
-    else return data.length === 5
-  },
+  // validate(schema, data) {
+  //   console.log(schema, data)
+  //   if (schema === true)  return true
+  //   else return data.length === 10
+  // },
   // 提取公共的限制条件
   macro() {
     return {
-      minLength: 1
+      minLength: 10
     }
   },
   compile(sch, parentSchema) {
@@ -76,4 +77,7 @@ const valid = validate({
   isWorker: true,
   keyword: 'jiang'
 })
-if (!valid) console.log(validate.errors)
+if (!valid) {
+  localize.zh(validate.errors)
+  console.log(validate.errors)
+}
