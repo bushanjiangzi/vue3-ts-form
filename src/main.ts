@@ -1,5 +1,4 @@
 import { createApp } from 'vue'
-// import App from './App.vue'
 import App from './App'
 
 // import { createApp, defineComponent, h, reactive, ref } from 'vue'
