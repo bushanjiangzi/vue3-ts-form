@@ -26,7 +26,7 @@ export default defineComponent({
           <p>{state.name + number}</p>
           <input type="text" v-model={state.name} />
           <HelloWorld age={number} />
-          {renderHelloWorld(12)}
+          {renderHelloWorld(number * 2)}
         </div>
       )
     }
