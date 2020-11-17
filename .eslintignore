@@ -2,3 +2,4 @@ ajv
 MonacoEditor.tsx
 /node_modules
 /text
+vue.config.js
