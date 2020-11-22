@@ -1,9 +1,7 @@
-import { defineComponent } from 'vue'
-
+import { defineComponent, inject } from 'vue'
 import { FiledPropsDefine } from '../types'
-
+import { SchemaFormContextKey } from '../context'
 // import SchemaItem from '../SchemaItem'
-
 // console.log(SchemaItem)
 
 const schema = {
@@ -22,6 +20,8 @@ export default defineComponent({
   name: 'ObjectField',
   props: FiledPropsDefine,
   setup() {
+    const content = inject(SchemaFormContextKey)
+    console.log(content)
     return () => {
       return <div>Object Field</div>
     }
