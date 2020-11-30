@@ -1,7 +1,8 @@
 import { defineComponent, h } from 'vue'
 
-export default defineComponent({
-  setup(p, { slots }) {
-    return () => h('div', 'this is form!')
-  }
-})
+import SchemaFrom from './SchemaForm'
+import NumberFiled from './fields/NumberField'
+
+export default SchemaFrom
+
+export { NumberFiled }
