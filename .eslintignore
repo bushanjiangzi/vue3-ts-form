@@ -1,5 +1,6 @@
 ajv
 MonacoEditor.tsx
 /node_modules
-/text
+/text/
+/tests/
 vue.config.js
