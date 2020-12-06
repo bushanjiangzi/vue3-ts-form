@@ -1,8 +1,19 @@
+import SelectionWidget from './Selection'
+
+import { CommonWidgetPropsDefine, CommonWidgetDefine } from '../types'
 import { defineComponent } from 'vue'
 
-export default defineComponent({
-  name: 'ThemeDefault',
+const CommonWidget: CommonWidgetDefine = defineComponent({
+  props: CommonWidgetPropsDefine,
   setup() {
-    return () => <div>Helle Theme</div>
+    return () => null
   }
 })
+
+export default {
+  widgets: {
+    SelectionWidget,
+    TextWidget: CommonWidget,
+    NumberWidget: CommonWidget
+  }
+}

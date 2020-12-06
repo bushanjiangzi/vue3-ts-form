@@ -1,4 +1,4 @@
-// import { defineComponent, h } from 'vue'
+import { defineComponent, h } from 'vue'
 
 import SchemaFrom from './SchemaForm'
 import NumberFiled from './fields/NumberField'
@@ -7,6 +7,8 @@ import ArrayField from './fields/ArrayField'
 
 import SelectionWidget from './widgets/Selection'
 
+import ThemeProvider from './theme'
+
 export default SchemaFrom
 
-export { NumberFiled, StringField, ArrayField, SelectionWidget }
+export { NumberFiled, StringField, ArrayField, SelectionWidget, ThemeProvider }
