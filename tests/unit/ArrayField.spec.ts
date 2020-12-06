@@ -1,31 +1,33 @@
-import { mount } from '@vue/test-utils'
-// import { defineComponent, h } from 'vue'
+import { mount, shallowMount } from '@vue/test-utils'
+import { defineComponent, h } from 'vue'
 
-import JsonSchemaForm, {
+import {
   SelectionWidget,
   NumberFiled,
   StringField,
-  ArrayField
+  ArrayField,
 } from '../../lib'
+
+import TestComponent from './utils/TestComponent'
 
 describe('ArrayFiled', () => {
   it('should render multi type', () => {
-    const wrapper = mount(JsonSchemaForm, {
+    const wrapper = mount(TestComponent, {
       props: {
         schema: {
           type: 'array',
           items: [
             {
-              type: 'string'
+              type: 'string',
             },
             {
-              type: 'number'
-            }
-          ]
+              type: 'number',
+            },
+          ],
         },
         value: [],
-        onChange: () => {}
-      }
+        onChange: () => {},
+      },
     })
 
     const arr = wrapper.findComponent(ArrayField)
@@ -37,17 +39,17 @@ describe('ArrayFiled', () => {
   })
 
   it('should render single type', () => {
-    const wrapper = mount(JsonSchemaForm, {
+    const wrapper = mount(TestComponent, {
       props: {
         schema: {
           type: 'array',
           items: {
-            type: 'string'
-          }
+            type: 'string',
+          },
         },
         value: ['1', '2'],
-        onChange: () => {}
-      }
+        onChange: () => {},
+      },
     })
 
     const arr = wrapper.findComponent(ArrayField)
@@ -60,18 +62,18 @@ describe('ArrayFiled', () => {
   })
 
   it('should render single type', () => {
-    const wrapper = mount(JsonSchemaForm, {
+    const wrapper = mount(TestComponent, {
       props: {
         schema: {
           type: 'array',
           items: {
             type: 'string',
-            enum: ['1', '2', '3']
-          }
+            enum: ['1', '2', '3'],
+          },
         },
         value: [],
-        onChange: () => {} // elsint-disable-line
-      }
+        onChange: () => {}, // elsint-disable-line
+      },
     })
 
     const arr = wrapper.findComponent(ArrayField)
@@ -82,3 +84,4 @@ describe('ArrayFiled', () => {
     // expect(num.exists()).toBeTruthy()
   })
 })
+
