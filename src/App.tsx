@@ -8,6 +8,9 @@ import demos from './demos'
 import SchemaForm, { ThemeProvider } from '../lib'
 import themeDefault from '../lib/theme-default'
 
+import customFormat from './plugins/customFormat'
+import customKeywords from './plugins/customKeyword'
+
 // TODO: 在lib中export
 type Schema = any
 type UISchema = any
@@ -81,24 +84,27 @@ export default defineComponent({
       schemaCode: string
       dataCode: string
       uiSchemaCode: string
+      customValidate: ((d: any, e: any) => void) | undefined
     } = reactive({
       schema: null,
       data: {},
       uiSchema: {},
       schemaCode: '',
       dataCode: '',
-      uiSchemaCode: ''
+      uiSchemaCode: '',
+      customValidate: undefined
     })
 
     watchEffect(() => {
       const index = selectedRef.value
-      const d = demos[index]
+      const d: any = demos[index]
       demo.schema = d.schema
       demo.data = d.default
       demo.uiSchema = d.uiSchema
       demo.schemaCode = toJson(d.schema)
       demo.dataCode = toJson(d.default)
       demo.uiSchemaCode = toJson(d.uiSchema)
+      demo.customValidate = d.customValidate
     })
 
     const methodRef: Ref<any> = ref()
@@ -130,11 +136,17 @@ export default defineComponent({
     const contextRef = ref()
     const nameRef = ref()
 
+    function validateForm() {
+      contextRef.value.doValidate().then((result: any) => {
+        console.log(result, '......')
+      })
+    }
+
     return () => {
       const classes = classesRef.value
       const selected = selectedRef.value
 
-      console.log(methodRef, nameRef)
+      // console.log(methodRef, nameRef)
 
       return (
         // <StyleThemeProvider>
@@ -183,10 +195,14 @@ export default defineComponent({
               <ThemeProvider theme={themeDefault}>
                 <SchemaForm
                   schema={demo.schema}
+                  uiSchema={demo.uiSchema || {}}
                   onChange={handleChange}
                   value={demo.data}
                   contextRef={contextRef}
                   ref={nameRef}
+                  customFormats={customFormat}
+                  customKeywords={customKeywords}
+                  customValidate={demo.customValidate}
                 />
               </ThemeProvider>
               {/* <SchemaForm
@@ -196,11 +212,7 @@ export default defineComponent({
                 contextRef={methodRef}
                 value={demo.data}
               /> */}
-              <button
-                onClick={() => console.log(contextRef.value.doValidate())}
-              >
-                校 验
-              </button>
+              <button onClick={validateForm}>校 验</button>
             </div>
           </div>
         </div>
