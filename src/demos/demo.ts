@@ -1,7 +1,9 @@
 export default {
   name: 'Demo',
   schema: {
-    type: 'number'
+    type: 'string',
+    minLength: 10,
+    title: 'demo'
   },
   uiSchema: {},
   default: 1

@@ -10,11 +10,11 @@ import {
 
 import Ajv, { Options } from 'ajv'
 
-import { Schema } from './types'
+import { Schema, SchemaTypes, Theme } from './types'
 
 import SchemaItem from './SchemaItem'
 import { SchemaFormContextKey } from './context'
-import { validateFormData } from './validator'
+import { validateFormData, ErrorSchema } from './validator'
 
 type A = typeof SchemaItem
 
@@ -53,13 +53,9 @@ export default defineComponent({
       type: String,
       default: 'zh'
     }
-    // theme: {
-    //   type: Object as PropType<Theme>,
-    //   required: true,
-    // },
   },
   name: 'SchemaForm',
-  setup(props) {
+  setup(props, { slots, emit, attrs }) {
     const handleChange = (v: any) => {
       props.onChange(v)
     }
@@ -68,6 +64,8 @@ export default defineComponent({
       SchemaItem
       // theme: props.theme,
     }
+
+    const errorSchemaRef: Ref<ErrorSchema> = shallowRef({})
 
     const validatorRef: Ref<Ajv.Ajv> = shallowRef() as any
 
@@ -82,8 +80,7 @@ export default defineComponent({
       () => props.contextRef,
       () => {
         if (props.contextRef) {
-          // eslint-disable-next-line
-          props.contextRef.value = {
+          props.contextRef.value = { // eslint-disable-line
             doValidate() {
               console.log('--------->')
 
@@ -98,6 +95,8 @@ export default defineComponent({
                 props.schema,
                 props.locale
               )
+
+              errorSchemaRef.value = result.errorSchema
 
               return result
             }
@@ -119,6 +118,7 @@ export default defineComponent({
           rootSchema={schema}
           value={value}
           onChange={handleChange}
+          errorSchema={errorSchemaRef.value || {}}
         />
       )
     }

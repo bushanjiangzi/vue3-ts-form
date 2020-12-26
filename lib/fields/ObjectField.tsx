@@ -1,15 +1,8 @@
-import {
-  defineComponent,
-  inject,
-  watchEffect,
-  DefineComponent,
-  ExtractPropTypes,
-  ComponentPublicInstance
-} from 'vue'
+import { defineComponent, DefineComponent } from 'vue'
 
-import { FiledPropsDefine } from '../types'
+import { FiledPropsDefine, CommonFieldType } from '../types'
 import { isObject } from '../utils'
-import { SchemaFormContextKey } from '../context'
+import { SchemaFormContextKey, useVJSFContext } from '../context'
 
 // import SchemaItem from '../SchemaItem'
 
@@ -27,23 +20,13 @@ const schema = {
   }
 }
 
-const TypeHelperComponent = defineComponent({
-  props: FiledPropsDefine
-})
-
-type SchemaItemDefine = typeof TypeHelperComponent
+type A = DefineComponent<typeof FiledPropsDefine, {}, {}>
 
 export default defineComponent({
   name: 'ObjectField',
   props: FiledPropsDefine,
   setup(props) {
-    const context: { SchemaItem: SchemaItemDefine } | undefined = inject(
-      SchemaFormContextKey
-    )
-
-    if (!context) {
-      throw Error('SchemaForm should be used')
-    }
+    const context = useVJSFContext()
 
     const handleObjectFieldChange = (key: string, v: any) => {
       const value: any = isObject(props.value) ? props.value : {}
@@ -58,7 +41,7 @@ export default defineComponent({
     }
 
     return () => {
-      const { schema, rootSchema, value } = props
+      const { schema, rootSchema, value, errorSchema } = props
 
       const { SchemaItem } = context
 
@@ -71,6 +54,7 @@ export default defineComponent({
           schema={properties[k]}
           rootSchema={rootSchema}
           value={currentValue[k]}
+          errorSchema={errorSchema[k] || {}}
           key={index}
           onChange={(v: any) => handleObjectFieldChange(k, v)}
         />
