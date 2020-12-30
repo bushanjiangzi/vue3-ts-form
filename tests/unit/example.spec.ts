@@ -1,21 +1,22 @@
-import { mount } from '@vue/test-utils'
-// import { defineComponent, h } from 'vue'
+import { mount, shallowMount } from '@vue/test-utils'
+import { defineComponent, h } from 'vue'
 
 import JsonSchemaForm, { NumberFiled } from '../../lib'
+import TestComponent from './utils/TestComponent'
 
 describe('JsonSchemaFrom', () => {
   it('should render correct number field', async () => {
     let value = ''
-    const wrapper = mount(JsonSchemaForm, {
+    const wrapper = mount(TestComponent, {
       props: {
         schema: {
-          type: 'number'
+          type: 'number',
         },
         value: value,
         onChange: (v) => {
           value = v
-        }
-      }
+        },
+      },
     })
 
     const numberFiled = wrapper.findComponent(NumberFiled)

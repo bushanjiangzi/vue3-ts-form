@@ -1,7 +1,7 @@
 {
   "name": "vue3-ts-form",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build:core": "vue-cli-service build --mode lib --target lib --name index --no-clean lib/index.ts",
@@ -12,6 +12,13 @@
     "prepublishOnly": "npm run build",
     "lint": "vue-cli-service lint"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.common.js",
   "dependencies": {
     "ajv": "^6.12.6",
     "ajv-errors": "^2.0.0",
@@ -63,5 +70,20 @@
       "vue-cli-service lint",
       "git add"
     ]
-  }
+  },
+  "description": "```\r npm install\r ```",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bushanjiangzi/vue3-ts-form.git"
+  },
+  "author": "grjiangzi",
+  "license": "(Apache-2.0)",
+  "bugs": {
+    "url": "https://github.com/bushanjiangzi/vue3-ts-form/issues"
+  },
+  "homepage": "https://github.com/bushanjiangzi/vue3-ts-form#readme"
 }

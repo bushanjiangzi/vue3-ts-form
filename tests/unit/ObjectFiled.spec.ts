@@ -1,7 +1,9 @@
-import { mount } from '@vue/test-utils'
-// import { defineComponent, h } from 'vue'
+import { mount, shallowMount } from '@vue/test-utils'
+import { defineComponent, h } from 'vue'
 
 import JsonSchemaForm, { NumberFiled, StringField } from '../../lib'
+
+import TestComponent from './utils/TestComponent'
 
 describe('ObjectFiled', () => {
   let schema: any
@@ -10,22 +12,22 @@ describe('ObjectFiled', () => {
       type: 'object',
       properties: {
         name: {
-          type: 'string'
+          type: 'string',
         },
         age: {
-          type: 'number'
-        }
-      }
+          type: 'number',
+        },
+      },
     }
   })
 
   it('should render properties to correct fileds', async () => {
-    const wrapper = mount(JsonSchemaForm, {
+    const wrapper = mount(TestComponent, {
       props: {
         schema,
         value: {},
-        onChange: () => {}
-      }
+        onChange: () => {},
+      },
     })
 
     const strFiled = wrapper.findComponent(StringField)
@@ -37,14 +39,14 @@ describe('ObjectFiled', () => {
 
   it('should change value when sub fields trigger onChange', async () => {
     let value: any = {}
-    const wrapper = mount(JsonSchemaForm, {
+    const wrapper = mount(TestComponent, {
       props: {
         schema,
         value: value,
         onChange: (v) => {
           value = v
-        }
-      }
+        },
+      },
     })
 
     const strFiled = wrapper.findComponent(StringField)
@@ -59,16 +61,16 @@ describe('ObjectFiled', () => {
 
   it('should render properties to correct fileds', async () => {
     let value: any = {
-      name: '123'
+      name: '123',
     }
-    const wrapper = mount(JsonSchemaForm, {
+    const wrapper = mount(TestComponent, {
       props: {
         schema,
         value: value,
         onChange: (v) => {
           value = v
-        }
-      }
+        },
+      },
     })
 
     const strFiled = wrapper.findComponent(StringField)
