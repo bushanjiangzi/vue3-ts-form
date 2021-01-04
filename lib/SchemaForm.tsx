@@ -151,7 +151,7 @@ export default defineComponent({
       () => props.contextRef,
       () => {
         if (props.contextRef) {
-          props.contextRef.value = { // eslint-disable-line
+          props.contextRef.value = {
             doValidate() {
               return new Promise((resolve) => {
                 validateResolveRef.value = resolve

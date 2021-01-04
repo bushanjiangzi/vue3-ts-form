@@ -14,7 +14,7 @@ export default {
       pass2: {
         type: 'string',
         minLength: 10,
-        title: 'retry password'
+        title: 're try password'
       },
       color: {
         type: 'string',
